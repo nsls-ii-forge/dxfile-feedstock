@@ -1,0 +1,37 @@
+{% set name = "dxfile" %}
+{% set version = "0.5" %}
+{% set sha256 = "6317fa9f1b4f12039ca68eab2d9c96d95930499d084f5802a02bb49c5fb1c88d" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/data-exchange/dxfile/archive/v{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  noarch: python
+  number: 1
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - h5py
+
+test:
+  imports:
+    - dxfile
+    - dxfile.dxtomo
+
+about:
+  home: http://dxfile.readthedocs.org
+  license: BSD 3-Clause
+  license_file: LICENSE.txt
+  summary: 'Reader/Writer for Data Exchange files.'
+  dev_url: https://github.com/data-exchange/dxfile
+  doc_url: http://dxfile.readthedocs.org
